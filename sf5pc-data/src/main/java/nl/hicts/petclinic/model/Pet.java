@@ -1,13 +1,11 @@
 package nl.hicts.petclinic.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
-@AllArgsConstructor
-public class Pet {
+public class Pet extends BaseEntity {
 	@Getter
 	@Setter
 	private PetType petType;

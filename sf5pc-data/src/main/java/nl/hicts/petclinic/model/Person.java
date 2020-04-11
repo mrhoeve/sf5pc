@@ -1,11 +1,9 @@
 package nl.hicts.petclinic.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@AllArgsConstructor
-public class Person {
+public class Person extends BaseEntity {
 	@Getter
 	@Setter
 	private String firstName;
