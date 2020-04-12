@@ -1,11 +1,13 @@
 package nl.hicts.petclinic.service.map;
 
 import nl.hicts.petclinic.model.Vet;
-import nl.hicts.petclinic.service.CrudService;
+import nl.hicts.petclinic.service.VetService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-public class VetServiceMap extends AbstractMapService<Vet, Long> implements CrudService<Vet, Long> {
+@Service
+public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
 	@Override
 	public Set<Vet> findAll() {
 		return super.findAll();
