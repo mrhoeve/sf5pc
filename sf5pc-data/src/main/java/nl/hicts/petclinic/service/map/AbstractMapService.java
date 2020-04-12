@@ -2,14 +2,11 @@ package nl.hicts.petclinic.service.map;
 
 import nl.hicts.petclinic.model.BaseEntity;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-public abstract class AbstractMapService<T extends BaseEntity, ID> {
+public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> {
 	
-	protected Map<ID, T> map = new HashMap<>();
+	protected Map<Long, T> map = new HashMap<>();
 	
 	Set<T> findAll() {
 		return new HashSet<>(map.values());
@@ -20,9 +17,16 @@ public abstract class AbstractMapService<T extends BaseEntity, ID> {
 	}
 	
 	T save(T object) {
-		map.put((ID)object.getId(), object);
-		
-		return object;
+		if(object != null) {
+			if(object.getId() == null) {
+				object.setId(getNextId());
+			}
+			map.put(object.getId(), object);
+
+			return object;
+		} else {
+			throw new RuntimeException("Object cannot be null");
+		}
 	}
 	
 	void deleteById(Long id) {
@@ -31,5 +35,12 @@ public abstract class AbstractMapService<T extends BaseEntity, ID> {
 	
 	void delete(T object) {
 		map.remove(object.getId());
+	}
+	
+	private Long getNextId() {
+		if(map.size() > 0) {
+			return Collections.max(map.keySet()) + 1;
+		}
+		return 1L;
 	}
 }
