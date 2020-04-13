@@ -1,12 +1,10 @@
 package nl.hicts.petclinic.bootstrap;
 
 import lombok.RequiredArgsConstructor;
-import nl.hicts.petclinic.model.Owner;
-import nl.hicts.petclinic.model.Pet;
-import nl.hicts.petclinic.model.PetType;
-import nl.hicts.petclinic.model.Vet;
+import nl.hicts.petclinic.model.*;
 import nl.hicts.petclinic.service.OwnerService;
 import nl.hicts.petclinic.service.PetTypeService;
+import nl.hicts.petclinic.service.SpecialtyService;
 import nl.hicts.petclinic.service.VetService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -19,9 +17,18 @@ public class DataLoader implements CommandLineRunner {
 	private final OwnerService ownerService;
 	private final VetService verService;
 	private final PetTypeService petTypeService;
+	private final SpecialtyService specialtyService;
 	
 	@Override
 	public void run(String... args) throws Exception {
+		int count = petTypeService.findAll().size();
+		
+		if(count==0) {
+			loadData();
+		}
+	}
+	
+	private void loadData() {
 		PetType dog = new PetType();
 		dog.setName("Dog");
 		PetType typeDog = petTypeService.save(dog);
@@ -62,15 +69,27 @@ public class DataLoader implements CommandLineRunner {
 		
 		ownerService.save(owner2);
 		
+		Specialty radiology = new Specialty();
+		radiology.setDescription("Radiology");
+		Specialty surgery = new Specialty();
+		radiology.setDescription("Surgery");
+		Specialty dentistry = new Specialty();
+		radiology.setDescription("Dentistry");
+		specialtyService.save(radiology);
+		specialtyService.save(surgery);
+		specialtyService.save(dentistry);
+		
 		Vet vet1 = new Vet();
 		vet1.setFirstName("Sam");
 		vet1.setLastName("Axe");
-
+		vet1.getSpecialities().add(radiology);
+		
 		verService.save(vet1);
 		
 		Vet vet2 = new Vet();
 		vet2.setFirstName("Jessie");
 		vet2.setLastName("Porter");
+		vet2.getSpecialities().add(surgery);
 		
 		verService.save(vet2);
 	}
