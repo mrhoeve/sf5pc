@@ -2,8 +2,10 @@ package nl.hicts.petclinic.bootstrap;
 
 import lombok.RequiredArgsConstructor;
 import nl.hicts.petclinic.model.Owner;
+import nl.hicts.petclinic.model.PetType;
 import nl.hicts.petclinic.model.Vet;
 import nl.hicts.petclinic.service.OwnerService;
+import nl.hicts.petclinic.service.PetTypeService;
 import nl.hicts.petclinic.service.VetService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -13,9 +15,18 @@ import org.springframework.stereotype.Component;
 public class DataLoader implements CommandLineRunner {
 	private final OwnerService ownerService;
 	private final VetService verService;
+	private final PetTypeService petTypeService;
 	
 	@Override
 	public void run(String... args) throws Exception {
+		PetType dog = new PetType();
+		dog.setName("Dog");
+		PetType typeDog = petTypeService.save(dog);
+		
+		PetType cat = new PetType();
+		dog.setName("Cat");
+		PetType typeCat = petTypeService.save(cat);
+		
 		Owner owner1 = new Owner();
 		owner1.setFirstName("Michael");
 		owner1.setLastName("Weston");
@@ -28,8 +39,6 @@ public class DataLoader implements CommandLineRunner {
 		
 		ownerService.save(owner2);
 		
-		System.out.println("Loaded Owners...");
-		
 		Vet vet1 = new Vet();
 		vet1.setFirstName("Sam");
 		vet1.setLastName("Axe");
@@ -41,7 +50,5 @@ public class DataLoader implements CommandLineRunner {
 		vet2.setLastName("Porter");
 		
 		verService.save(vet2);
-		
-		System.out.println("Loaded Vets...");
 	}
 }
