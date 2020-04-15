@@ -5,10 +5,12 @@ import nl.hicts.petclinic.model.Owner;
 import nl.hicts.petclinic.service.OwnerService;
 import nl.hicts.petclinic.service.PetService;
 import nl.hicts.petclinic.service.PetTypeService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Profile({"default", "map"})
 public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
 	
 	private final PetTypeService petTypeService;
