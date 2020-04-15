@@ -1,15 +1,17 @@
 package nl.hicts.petclinic.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "specialties")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Specialty extends BaseEntity {
-	@Getter
-	@Setter
 	private String description;
 }

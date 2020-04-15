@@ -1,19 +1,25 @@
 package nl.hicts.petclinic.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Person extends BaseEntity {
-	@Getter
-	@Setter
+
+	public Person (Long id, String firstName, String lastName) {
+		super(id);
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+	
 	@Column(name = "first_name")
 	private String firstName;
-	@Getter
-	@Setter
 	@Column(name = "last_name")
 	private String lastName;
 }

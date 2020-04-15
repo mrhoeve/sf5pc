@@ -1,7 +1,6 @@
 package nl.hicts.petclinic.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -9,21 +8,27 @@ import java.util.Set;
 
 @Entity
 @Table(name = "owners")
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(exclude = {"pets"})
 public class Owner extends Person {
-	@Getter
-	@Setter
+	
+	@Builder
+	public Owner(Long id, String firstName, String lastName, String address, String city, String telephone, Set<Pet> pets){
+		super(id, firstName, lastName);
+		this.address = address;
+		this.city = city;
+		this.telephone = telephone;
+		this.pets = pets;
+	}
+	
 	@Column(name = "address")
 	private String address;
-	@Getter
-	@Setter
 	@Column(name = "city")
 	private String city;
-	@Getter
-	@Setter
 	@Column(name = "telephone")
 	private String telephone;
-	@Getter
-	@Setter
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
 	private Set<Pet> pets = new HashSet<>();
 }
